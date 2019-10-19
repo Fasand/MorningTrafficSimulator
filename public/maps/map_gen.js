@@ -61,4 +61,4 @@ function createMap(dimensions, maxTunnels, maxLength) {
     return map; // all our tunnels have been created and our map is complete, so lets return it to our render()
 }
 
-var mapGenerated = createMap(20, 60, 15)
+var mapGenerated = createMap(20, 60, 15) //createMap takes x, y and max amount of tunnels made (straight green lines)
