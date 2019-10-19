@@ -13,31 +13,31 @@ var Game = function( opts )
 	//  Acquire a drawing context from the canvas
 	this.ctx = this.canvas.getContext('2d');
 	this.canvasWidth = this.canvas.clientWidth;
-  this.canvasHeight = this.canvas.clientHeight;
-  this.map = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-    [0, 1, 0, 0, 0, 0, 1, 0, 1, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-    [0, 1, 0, 1, 0, 0, 0, 0, 1, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  ];
-  this.mapW = this.map[0].length;
-  this.mapH = this.map.length;
-  this.tileW = Math.ceil(this.canvasWidth / this.mapW);
-  this.tileH = Math.ceil(this.canvasHeight / this.mapH);
+	this.canvasHeight = this.canvas.clientHeight;
+	this.map = [
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+		[0, 1, 0, 0, 0, 0, 1, 0, 1, 0],
+		[0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+		[0, 1, 0, 1, 0, 0, 0, 0, 1, 0],
+		[0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	];
+	this.mapW = this.map[0].length;
+	this.mapH = this.map.length;
+	this.tileW = Math.ceil(this.canvasWidth / this.mapW);
+	this.tileH = Math.ceil(this.canvasHeight / this.mapH);
 
 	//  Scrolling background
 	this.tileMap = new TileMap({
-    map: this.map,
+    	map: this.map,
 		tileImage: opts.tileImage,
 		viewportWidth: this.canvasWidth,
-    viewportHeight: this.canvasHeight,
-    mapW: this.mapW,
-    mapH: this.mapH,
-    tileW: this.tileW,
-    tileH: this.tileH,
+		viewportHeight: this.canvasHeight,
+		mapW: this.mapW,
+		mapH: this.mapH,
+		tileW: this.tileW,
+		tileH: this.tileH,
 	});
 
 	//  Holds keystates
@@ -49,17 +49,32 @@ var Game = function( opts )
 	//  Instance of our car
 	this.car = new Car({stats:this.stats});
 
+	//	Collision Detector Init
+	this.colDetect = new CollisionDetectr(
+		{
+			car: this.car,
+			map: this.map,
+			tileW: this.tileW,
+			tileH: this.tileH,
+			mapW: this.mapW,
+			mapH: this.mapH,
+			scale: this.DRAW_SCALE,
+			canvasW: this.canvasWidth,
+			canvasH: this.canvasHeight
+		});
+
 	//  Configuration panel for the car
 	this.configPanel = new ConfigPanel(this.car);
 };
 
-Game.DRAW_SCALE = 50.0;  // 1m = 25px
+Game.DRAW_SCALE = 25.0;  // 1m = 25px
 
 
 /**  Update game logic by delta T (millisecs) */
 Game.prototype.update = function( dt )
 {
 	this.car.setInputs(this.inputs);
+	this.colDetect.update();
 	this.car.update(dt);
 };
 
@@ -79,8 +94,8 @@ Game.prototype.render = function()
 	//  Render the car.
 	//  Set axis at centre of screen and y axis up.
 	this.ctx.translate( this.canvasWidth / 2.0, this.canvasHeight / 2.0 );
-  this.ctx.scale(s, -s);
-  // Don't move the camera
+	this.ctx.scale(s, -s);
+	// Don't move the camera
 	// this.ctx.translate( -this.car.position.x, -this.car.position.y );
   this.car.render(this.ctx);
 
@@ -95,7 +110,6 @@ Game.prototype.render = function()
   else if (tileY < 0) tileY = 0;
   var tile = this.map[tileY][tileX];
   
-  if (tile == 0) console.log('COLLISION');
 
 	this.ctx.restore();
 

@@ -3,16 +3,35 @@
 "use strict";
 
 function TileMap(opts) {
-  this.img = opts.tileImage;
-  this.viewportWidth = opts.viewportWidth;
-  this.viewportHeight = opts.viewportHeight;
-  this.map = opts.map;
-  this.mapW = opts.mapW;
-  this.mapH = opts.mapH;
-  this.tileW = opts.tileW;
-  this.tileH = opts.tileH;
+  this.opts = opts || {};
+  console.log('here');
+  this.init();
 }
-
+TileMap.prototype.init = function() {
+  this.img = this.opts.tileImage;
+  this.viewportWidth = this.opts.viewportWidth;
+  this.viewportHeight = this.opts.viewportHeight;
+  this.map = this.opts.map;
+  this.mapW = this.opts.mapW;
+  this.mapH = this.opts.mapH;
+  this.tileW = this.opts.tileW;
+  this.tileH = this.opts.tileH;
+  this.registeredObjects = [];
+  for (var y = 0; y < this.mapH; ++y) {
+    for (var x = 0; x < this.mapW; ++x) {
+      var xpos = x * this.tileW;
+      var ypos = y * this.tileH;
+      // console.log(xpos, ypos);
+      this.registeredObjects.push({
+        x: xpos,
+        y: ypos,
+        tileW: this.tileW,
+        tileH: this.tileH
+      });
+    }
+  }
+console.log(this.registeredObjects);
+}
 TileMap.prototype.render = function(ctx) {
   
 
@@ -20,7 +39,7 @@ TileMap.prototype.render = function(ctx) {
     for (var x = 0; x < this.mapW; ++x) {
       switch (this.map[y][x]) {
         case 0:
-          ctx.fillStyle = "#685b48";
+          ctx.fillStyle = "#685b" + y.toString() + x.toString();
           break;
         default:
           ctx.fillStyle = "#5aa457";

@@ -53,9 +53,6 @@ var Car = function( opts )
 	this.axleWeightRatioFront = 0.0;  // % car weight on the front axle
 	this.axleWeightRatioRear = 0.0;  // % car weight on the rear axle
 
-	//	Collision Detector Init
-	this.colDetect = new CollisionDetectr();
-
 	//  Setup car configuration
 	this.config = new Car.Config(opts.config);
 	this.setConfig();
@@ -198,9 +195,6 @@ Car.prototype.doPhysics = function( dt )
 	this.yawRate += angularAccel * dt;
 	this.heading += this.yawRate * dt;
 
-	//	collision detection
-	this.colDetect.update();
-
 	//  finally we can update position
 	this.position.x += this.velocity.x * dt;
 	this.position.y += this.velocity.y * dt;
@@ -304,27 +298,16 @@ Car.prototype.render = function( ctx )
 
 	// 	draw pill car
 
-	var x = -cfg.cgToRear;
-	var y = -cfg.halfWidth;
-	var width = cfg.cgToFront + cfg.cgToRear;
-	var height = cfg.halfWidth * 2.0;
-	var radius = cfg.halfWidth;
+	
 	ctx.beginPath();
-    ctx.moveTo(x + radius, y);
-    ctx.lineTo(x + width - radius, y);
-    ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
-    ctx.lineTo(x + width, y + height - radius);
-    ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-    ctx.lineTo(x + radius, y + height);
-    ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
-    ctx.lineTo(x, y + radius);
-    ctx.quadraticCurveTo(x, y, x + radius, y);
-    ctx.closePath();
-    ctx.strokeStyle = '#222222';
+	ctx.rect(-cfg.cgToRear, -cfg.halfWidth, cfg.cgToFront + cfg.cgToRear, cfg.halfWidth * 2.0);
 	ctx.fillStyle = '#1166BB';
-	ctx.lineWidth = 0.05;
-	ctx.stroke();
 	ctx.fill();
+	ctx.lineWidth = 0.05;  // use thin lines because everything is scaled up 25x
+	ctx.strokeStyle = '#222222';
+	ctx.stroke();
+    ctx.closePath();
+    
 
 	// Draw rear wheel
 	ctx.translate(-cfg.cgToRearAxle, 0);
