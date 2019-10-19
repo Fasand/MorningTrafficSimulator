@@ -302,6 +302,8 @@ Car.prototype.render = function( ctx )
 	ctx.translate(this.position.x, this.position.y);
 	ctx.rotate(this.heading);
 
+	// 	draw pill car
+
 	var x = -cfg.cgToRear;
 	var y = -cfg.halfWidth;
 	var width = cfg.cgToFront + cfg.cgToRear;
@@ -328,8 +330,20 @@ Car.prototype.render = function( ctx )
 	ctx.translate(-cfg.cgToRearAxle, 0);
 	ctx.beginPath();
 	ctx.rect(
-		-cfg.wheelRadius, -cfg.wheelWidth / 2.0,
-		cfg.wheelRadius * 2, cfg.wheelWidth
+		-cfg.wheelRadius * 0.4, -cfg.wheelWidth * 2.0,
+		cfg.wheelRadius, cfg.wheelWidth
+	);
+	ctx.fillStyle = '#444444';
+	ctx.fill();
+	ctx.lineWidth = 0.05;
+	ctx.strokeStyle = '111111';
+	ctx.stroke();
+	ctx.closePath();
+	// second wheel in rear
+	ctx.beginPath();
+	ctx.rect(
+		-cfg.wheelRadius * 0.4, -cfg.wheelWidth + cfg.halfWidth,
+		cfg.wheelRadius, cfg.wheelWidth
 	);
 	ctx.fillStyle = '#444444';
 	ctx.fill();

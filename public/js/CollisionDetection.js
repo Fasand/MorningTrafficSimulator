@@ -13,6 +13,7 @@ var CollisionDetectr = function( car )
 
 CollisionDetectr.prototype.init = function() {
     console.log('yeet');
+    this.setUpWalls();
     this.registeredObjects = [];
     //detect proximity first
 
@@ -25,10 +26,12 @@ CollisionDetectr.prototype.init = function() {
     //     }
 }
 
-
+CollisionDetectr.prototype.setUpWalls = function() {
+    
+}
 
 CollisionDetectr.prototype.update = function() {
-    
+
 }
 var exampleCallbackFn = function () {
     console.log('callbackfn');
