@@ -1,7 +1,6 @@
 /*global $e, Car, InputState, ConfigPanel, Stats, TileMap */
 
 "use strict";
-
 /**
  *  Game class
  */
@@ -14,15 +13,7 @@ var Game = function( opts )
 	this.ctx = this.canvas.getContext('2d');
 	this.canvasWidth = this.canvas.clientWidth;
   this.canvasHeight = this.canvas.clientHeight;
-  this.map = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-    [0, 1, 0, 0, 0, 0, 1, 0, 1, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-    [0, 1, 0, 1, 0, 0, 0, 0, 1, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  ];
+  this.map = map_2;
   this.mapW = this.map[0].length;
   this.mapH = this.map.length;
   this.tileW = Math.ceil(this.canvasWidth / this.mapW);
