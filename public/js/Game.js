@@ -35,7 +35,7 @@ var Game = function( opts )
 	this.configPanel = new ConfigPanel(this.car);
 };
 
-Game.DRAW_SCALE = 25.0;  // 1m = 25px
+Game.DRAW_SCALE = 50.0;  // 1m = 25px
 
 
 /**  Update game logic by delta T (millisecs) */
