@@ -1,19 +1,6 @@
-import React, {Component} from 'react';
-import './App.css';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      dimensions: 30,
-      maxTunnels: 100,
-      maxLength: 8
-    };
-    this.onClick = this.onClick.bind(this);
-    this.onChange = this.onChange.bind(this);
-  }
 
-  createArray(num, dimensions) {
+function createArray(num, dimensions) {
     var array = [];
     for (var i = 0; i < dimensions; i++) {
       array.push([]);
@@ -21,29 +8,13 @@ class App extends Component {
         array[i].push(num);
       }
     }
-    return array;
-  }
+return array;
+}
 
-  onChange(e) {
-    this.setState({
-      [e.target.name]: this.validator(e.target.value)
-    });
-  }
-
-  validator(x) {
-    let input = Number(x);
-    if (isNaN(input)){
-      return 0;
-    }
-    return input;
-  }
 
   //lets create a randomly generated map
-  createMap() {
-    let dimensions = this.state.dimensions, // width and height of the map
-      maxTunnels = this.state.maxTunnels, // max number of roads possible
-      maxLength = this.state.maxLength, // max length each rad can have
-      map = this.createArray(1, dimensions), // create a 2d array full of 1's
+function createMap(dimensions, maxTunnels, maxLength) {
+    let map = createArray(1, dimensions), // create a 2d array full of 1's
       currentRow = Math.floor(Math.random() * dimensions), // our current row - start at a random spot
       currentColumn = Math.floor(Math.random() * dimensions), // our current column - start at a random spot
       directions = [[-1, 0], [1, 0], [0, -1], [0, 1]], // array to get a random direction from (left,right,up,down)
@@ -87,43 +58,6 @@ class App extends Component {
       }
     }
     return map; // all our tunnels have been created and our map is complete, so lets return it to our render()
-  };
-
-  onClick(e) {
-    this.forceUpdate()
-  }
-
-  render() {
-    let grid = this.createMap();
-    return (
-      <div >
-        <div className="form-group row text-center">
-          <div className="inline">
-            <label>dimensions</label>
-            <input className="form-control" name="dimensions" type="text" maxLength="2" value={this.state.dimensions} onChange={this.onChange}/>
-          </div>
-          <div className="inline">
-            <label>maxTunnels</label>
-            <input className="form-control" name="maxTunnels" type="text" maxLength="3" value={this.state.maxTunnels} onChange={this.onChange}/>
-          </div>
-          <div className="inline">
-            <label>maxLength</label>
-            <input className="form-control" name="maxLength" type="text" maxLength="3" value={this.state.maxLength} onChange={this.onChange}/>
-          </div>
-        </div>
-        <table className="grid" onClick={this.onClick}>
-          <thead>
-            {grid.map((obj, row) => <tr key={row}>{obj.map((obj2, col) =>< td className = {
-                obj2 === 1
-                  ? 'wall'
-                  : 'tunnel'
-              }
-              key = {
-                col
-              } > </td>)}</tr>)}
-          </thead>
-        </table>
-      </div>
-    );
-  }
 }
+
+var mapGenerated = createMap(10, 10, 6)
