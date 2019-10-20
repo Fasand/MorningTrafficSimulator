@@ -40,7 +40,7 @@ Game.prototype.getNextEndPosition = function(
       Game.MIN_STARTEND_DELTA
   );
   // TODO: Can draw the same end multiple times
-  return new Random().draw(ends);
+  return ends[Math.floor(Math.random() * ends.length)];
 };
 
 Game.prototype.getRoadPositions = function() {
