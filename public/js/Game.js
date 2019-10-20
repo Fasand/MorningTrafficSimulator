@@ -107,23 +107,22 @@ Game.prototype.setUpGame = function() {
 
 Game.prototype.gameOver = function(loser = undefined) {
   this.gameIsOver = true;
-  $('#gameOverModal').show();
+  $("#gameOverModal").show();
   let text;
   if (loser) {
     text = "YOU LOSE, " + getName(loser.id) + "!";
-  }
-  else {
+  } else {
     const winner = this.players.filter(p => p.round == this.numRounds)[0];
     text = "YOU WIN, " + getName(winner.id) + "!";
   }
   GAME_OVER_TEXT = text;
-  $('.game-over-text').text(text);
+  $(".game-over-text").text(text);
   this.ctx.save();
   this.ctx.restore();
 };
 var getName = function(id) {
   return id === 0 ? PLAYER_0_NAME : PLAYER_1_NAME;
-}
+};
 /**  Update game logic by delta T (millisecs) */
 Game.prototype.update = function(dt) {
   if (this.gameIsOver) return;
@@ -249,7 +248,6 @@ Game.prototype.resize = function() {
 };
 
 Game.prototype.setInputKeyState = function(k, s) {
-  
   var p1 = this.players[0].inputs;
   if (k === 37)
     // arrow left
@@ -265,7 +263,9 @@ Game.prototype.setInputKeyState = function(k, s) {
     p1.brake = s;
   else if (k === 32 && s == 1.0) {
     // space
-    var audio = new Audio('../public/honks/honk' + Math.floor(Math.random() * 6 + 1) + '.m4a');
+    var audio = new Audio(
+      "../honks/honk" + Math.floor(Math.random() * 6 + 1) + ".m4a"
+    );
     audio.volume = 1;
     audio.play();
   }
@@ -289,7 +289,6 @@ Game.prototype.setInputKeyState = function(k, s) {
 
 Game.prototype.onKeyDown = function(k) {
   this.setInputKeyState(k.keyCode, 1.0);
-  
 };
 
 Game.prototype.onKeyUp = function(k) {
