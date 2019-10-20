@@ -8,16 +8,20 @@
     <link type="text/css" rel="stylesheet" href="./css/main.css" media="screen" />
     <link type="text/css" rel="stylesheet" href="./css/modal.css" media="screen" />
     <link type="text/css" rel="stylesheet" href="./css/style.css" media="screen" />
+    <link type="text/css" rel="stylesheet" href="./css/slider.css" media="screen" />
+    
     <script src="./js/jquery/jquery-3.4.1.min.js"></script>
     <script src="./js/modal.js" type="text/javascript"></script>
     <script src="./js/main-menu.js" type="text/javascript"></script>
     <script type="text/javascript" src="./js/domutil.js"></script>
+    <script type="text/javascript" src="./js/form.js"></script>
     <script type="text/javascript" src="./js/sidebar.js"></script>
     <script type="text/javascript" src="./js/GMath.js"></script>
     <script type="text/javascript" src="./js/Vec2.js"></script>
     <script type="text/javascript" src="./js/InputState.js"></script>
     <script type="text/javascript" src="./js/Car.js"></script>
     <script type="text/javascript" src="./js/TileMap.js"></script>
+    <script type="text/javascript" src="./js/music.js"></script>
     <script type="text/javascript" src="./js/Game.js"></script>
     <script type="text/javascript" src="./js/App.js"></script>
     <script type="text/javascript" src="./js/navigation.js"></script>
@@ -33,16 +37,13 @@
         <div id="menu" class="menu">
             <p><a id="homePanelBtn">Home</a></p>
             <p><a id="settingsBtn">Settings</a></p>
-            <p><a>Credits</a></p>
+            <p><a href="https://github.com/Fasand/carphysics2d">Credits</a></p>
         </div>
         <div class="menu__toggler" id="menu__toggler" onclick="toggleSidebar()" style="text-align:left"><span></span>
         </div>
 
         <div id="game" class="webgame">
             <canvas id="game_canvas" class="game_canvas"></canvas>
-            <div id="sourcenav" class="sitenav" style="left:auto;right:1em">
-                <a href="https://github.com/spacejack/carphysics2d">source</a>
-            </div>
             <div id="loading_block" class="loading_block">
                 loading...
             </div>
@@ -67,8 +68,24 @@
     <div id="settingsModal" class="modal">
         <!-- Modal content -->
         <div class="modal-content">
-            <span class="close" id='closeSettingsModal'>&times;</span>
-            <p>Some text in the settings Modal..</p>
+            <div class="modal-header">
+                <h3>Settings</h3>
+                    <span class="close" id='closeSettingsModal'>&times;</span>
+            </div>
+            <div class="push-down"></div>
+            <form>
+                    <label>Number of rounds: </label>
+                    <input type="text" id="numInpt"/><br/>
+                    <label>Player 0 name: </label>
+                    <input type="text" id="player0name"/><br/>
+                    <label>Player 1 name: </label>
+                    <input type="text" id="player1name"/><br/>
+                    <label>Music Volume </label><br/>
+                    <input type="range" min="1" max="100" value="50" class="slider" id="myRange"><br/>
+                    <a class="button2" id="saveButton">Save</a>
+
+            </form>
+            
         </div>
     </div>
     <!-- The Start play Modal -->
@@ -83,19 +100,31 @@
             <p>Try to survive the longest or challenge your friend for a dual of a lifetime.</p>
 
             <h3>Controls</h3>
-            <p>Arrow Keys</p>
-
+            <div class="control-box">
+                <p>Player 0: ARROW KEYS<br/></p>
+                <p>Player 1: WASD</p>
+                <p>Honk: SPACE</p>
+            </div>
+            <h3>Choose a mode!</h3>
             <a onclick="toggleToSingleMode()" class="button2 active-mode" id="single-toggle">Single Player</a>
             <a onclick="toggleToMultiMode()" class="button2" id="multi-toggle">Multi Player</a><br />
+            <h3>Hit it!</h3>
             <a class="button2" id="playBtn">Play</a>
 
         </div>
     </div>
     <div id="gameOverModal" class="modal">
         <!-- Modal content -->
-        <div class="modal-content">
-            <h1>U died!</h1>
-
+        <div class="modal-content game-over-modal">
+            <h1 class="game-over-text"></h1>
+            <h3>Play again?</h3>
+            <div style="margin-bottom: 50px;">
+                <a onclick="toggleToSingleMode()" class="button2 active-mode" id="single-toggle-again">Single Player</a>
+                <a onclick="toggleToMultiMode()" class="button2" id="multi-toggle-again">Multi Player</a><br />
+            </div>
+            
+            <a class="button2" id="playAgainBtn">Play</a>
+            <a class="button2" id="goToHome">Go to Home Page!</a>
         </div>
     </div>
 </body>
