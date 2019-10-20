@@ -30,8 +30,11 @@ Game.PLAYER_CAR_SPRITES = ["dorange", "green", "orange"].map(
   c => `img/car-${c}.png`
 );
 
-Game.prototype.getNextEndPosition = function([compareX, compareY]) {
-  const ends = this.getRoadPositions(this.map).filter(
+Game.prototype.getNextEndPosition = function(
+  [compareX, compareY],
+  roadPositions
+) {
+  const ends = roadPositions.filter(
     ([x, y]) =>
       Math.sqrt(Math.pow(compareX - x, 2) + Math.pow(compareY - y, 2)) >
       Game.MIN_STARTEND_DELTA
@@ -54,9 +57,13 @@ Game.prototype.setUpGame = function() {
   // Generate the start position and all end positions, one for each turn
   this.roadPositions = this.getRoadPositions();
   this.startPosition = this.roadPositions.pop();
-  this.endPositions = [this.getNextEndPosition(this.startPosition)];
+  this.endPositions = [
+    this.getNextEndPosition(this.startPosition, this.roadPositions),
+  ];
   for (var i = 1; i < this.numRounds; i++) {
-    this.endPositions.push(this.getNextEndPosition(this.endPositions[i - 1]));
+    this.endPositions.push(
+      this.getNextEndPosition(this.endPositions[i - 1], this.roadPositions)
+    );
   }
 
   // Initialize players
