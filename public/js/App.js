@@ -33,7 +33,6 @@ App.prototype.init = function() {
   //  Resize now to make canvas correct size
   this.resize();
   that.onAssetsLoaded();
-  
 };
 
 App.prototype.onAssetsLoaded = function() {
@@ -103,7 +102,7 @@ App.prototype.doFrame = function() {
 };
 App.resume = function() {
   App._instance.doFrame();
-}
+};
 App.prototype.resize = function() {
   // What is our container size...
   var rc = $e("game_container").getBoundingClientRect();

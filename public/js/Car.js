@@ -335,30 +335,34 @@ Car.prototype.render = function(ctx) {
   // ctx.stroke();
   // ctx.closePath();
   // Draw rear wheel
-	ctx.translate(-cfg.cgToRearAxle, 0);
-	ctx.beginPath();
-	ctx.rect(
-		-cfg.wheelRadius * 0.4, -cfg.wheelWidth * 2.0,
-		cfg.wheelRadius, cfg.wheelWidth
-	);
-	ctx.fillStyle = '#444444';
-	ctx.fill();
-	ctx.lineWidth = 0.05;
-	ctx.strokeStyle = '111111';
-	ctx.stroke();
-	ctx.closePath();
-	// second wheel in rear
-	ctx.beginPath();
-	ctx.rect(
-		-cfg.wheelRadius * 0.4, -cfg.wheelWidth + cfg.halfWidth,
-		cfg.wheelRadius, cfg.wheelWidth
-	);
-	ctx.fillStyle = '#444444';
-	ctx.fill();
-	ctx.lineWidth = 0.05;
-	ctx.strokeStyle = '111111';
-	ctx.stroke();
-	ctx.closePath();
+  ctx.translate(-cfg.cgToRearAxle, 0);
+  ctx.beginPath();
+  ctx.rect(
+    -cfg.wheelRadius * 0.4,
+    -cfg.wheelWidth * 2.0,
+    cfg.wheelRadius,
+    cfg.wheelWidth
+  );
+  ctx.fillStyle = "#444444";
+  ctx.fill();
+  ctx.lineWidth = 0.05;
+  ctx.strokeStyle = "111111";
+  ctx.stroke();
+  ctx.closePath();
+  // second wheel in rear
+  ctx.beginPath();
+  ctx.rect(
+    -cfg.wheelRadius * 0.4,
+    -cfg.wheelWidth + cfg.halfWidth,
+    cfg.wheelRadius,
+    cfg.wheelWidth
+  );
+  ctx.fillStyle = "#444444";
+  ctx.fill();
+  ctx.lineWidth = 0.05;
+  ctx.strokeStyle = "111111";
+  ctx.stroke();
+  ctx.closePath();
 
   // Draw front wheel
   ctx.translate(cfg.cgToRearAxle + cfg.cgToFrontAxle, 0);
@@ -378,16 +382,18 @@ Car.prototype.render = function(ctx) {
   ctx.closePath();
   // second wheel in rear
   ctx.rotate(this.steerAngle * 0.5);
-	ctx.beginPath();
-	ctx.rect(
-		-cfg.wheelRadius * 0.4, -cfg.wheelWidth + cfg.halfWidth,
-		cfg.wheelRadius, cfg.wheelWidth
-	);
-	ctx.fillStyle = '#444444';
-	ctx.fill();
-	ctx.lineWidth = 0.05;
-	ctx.strokeStyle = '111111';
-	ctx.stroke();
-	ctx.closePath();
+  ctx.beginPath();
+  ctx.rect(
+    -cfg.wheelRadius * 0.4,
+    -cfg.wheelWidth + cfg.halfWidth,
+    cfg.wheelRadius,
+    cfg.wheelWidth
+  );
+  ctx.fillStyle = "#444444";
+  ctx.fill();
+  ctx.lineWidth = 0.05;
+  ctx.strokeStyle = "111111";
+  ctx.stroke();
+  ctx.closePath();
   ctx.restore();
 };
