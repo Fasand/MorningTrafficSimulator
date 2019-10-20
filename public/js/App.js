@@ -11,8 +11,6 @@ var App = function() {
   this.tileMap = null;
   this.tileImage = null;
   this.prevT = 0; // previous frame timestamp (millisecs)
-  console.log('fuck neeeeeeee');
-
 };
 
 App._instance = null;
@@ -43,11 +41,11 @@ App.prototype.onAssetsLoaded = function() {
   var that = this;
 
   $e("loading_block").style.display = "none";
-
+  this.numRounds = NUM_ROUNDS !== void 0 ? NUM_ROUNDS : 5;
   //  Create game instance
   this.game = new Game({
     canvas: this.canvas,
-    numRounds: 5,
+    numRounds: this.numRounds,
     numPlayers: GAME_MODE,
   });
   // Bind to window
@@ -70,7 +68,7 @@ App.prototype.onAssetsLoaded = function() {
   );
 
   this.prevT = Date.now();
-
+  startMusic();
   //  Start animation loop
   requestAnimationFrame(function() {
     that.doFrame();
@@ -121,5 +119,5 @@ App.prototype.resize = function() {
   if (this.game) this.game.resize();
 };
 var PAUSE = true;
-var END = false;
 var RESTART = false;
+var NUM_ROUNDS;
