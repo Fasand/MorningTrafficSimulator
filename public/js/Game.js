@@ -39,6 +39,7 @@ Game.prototype.getNextEndPosition = function(
       Math.sqrt(Math.pow(compareX - x, 2) + Math.pow(compareY - y, 2)) >
       Game.MIN_STARTEND_DELTA
   );
+  // TODO: Can draw the same end multiple times
   return new Random().draw(ends);
 };
 
