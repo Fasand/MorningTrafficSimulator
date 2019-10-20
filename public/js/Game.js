@@ -261,7 +261,7 @@ Game.prototype.setInputKeyState = function(k, s) {
   else if (k === 40)
     // arrow down
     p1.brake = s;
-  else if (k === 32 && s == 1.0) {
+  else if (k === 32) {
     // space
     var audio = new Audio(
       "../honks/honk" + Math.floor(Math.random() * 6 + 1) + ".m4a"
