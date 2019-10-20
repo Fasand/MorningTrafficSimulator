@@ -34,13 +34,16 @@ Game.prototype.getNextEndPosition = function(
   [compareX, compareY],
   roadPositions
 ) {
-  const ends = roadPositions.filter(
-    ([x, y]) =>
+  const ends = roadPositions
+    .map(([x, y], idx) =>
       Math.sqrt(Math.pow(compareX - x, 2) + Math.pow(compareY - y, 2)) >
       Game.MIN_STARTEND_DELTA
-  );
-  // TODO: Can draw the same end multiple times
-  return ends[Math.floor(Math.random() * ends.length)];
+        ? idx
+        : null
+    )
+    .filter(x => x != null);
+  const idx = ends[Math.floor(Math.random() * ends.length)];
+  return roadPositions.splice(idx, 1)[0];
 };
 
 Game.prototype.getRoadPositions = function() {
